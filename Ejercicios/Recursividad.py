@@ -31,7 +31,7 @@ def fibonacci(n):
 
 fibonacci(1500)
 
-#Fibonacci con REcursividad
+#Fibonacci con Recursividad
 def fibonacci_r(n):
     if n==0:
         return 0
