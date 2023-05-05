@@ -1,6 +1,8 @@
 #Entorno Web
 import streamlit as st
 from PIL import Image
+from streamlit_folium import st_folium
+import folium
 
 #Configurar la página
 st.set_page_config(
@@ -11,6 +13,9 @@ st.set_page_config(
 logo=Image.open("Ejercicios/Web/images/logopython.png")
 
 st.sidebar.image(logo,width=60)
+
+buscar=st.sidebar.text_input("Buscador")
+
 st.sidebar.title("Menú")
 help=st.sidebar.checkbox("Ayuda", disabled=False)
 
@@ -57,19 +62,32 @@ st.divider()
 cont1=st.container()
 
 if st.sidebar.button("Mostrar Versiones"):
-    with cont1:
-        st.header("Versiones de Python")
-        tab1,tab2,tab3=st.tabs(["3.08","3.09","3.10"])
-        with tab1:
-            st.write("La versión 3.08 de Python")
-        with tab2:
-            st.write("La versión 3.09 de Python")
-        with tab3:
-            st.write("La versión 3.10 de Python")
-if st.sidebar.button("Ocultar Versiones"):
         with cont1:
-            st.write("")
+            st.header("Versiones de Python")
+            tab1,tab2,tab3=st.tabs(["3.08","3.09","3.10"])
+            with tab1:
+                st.write("La versión 3.08 de Python")
+            with tab2:
+                st.write("La versión 3.09 de Python")
+            with tab3:
+                st.write("La versión 3.10 de Python")
+
+if st.sidebar.button("Ocultar Versiones"):
+    cont1.empty()
 
 if help==True:
     st.sidebar.header("Descripción de Python")
     st.sidebar.write("Python es un lenguaje de alto nivel")
+
+with st.expander("Referencias", expanded=False):
+    st.write("Páginas oficiales de Python")
+
+st.divider()
+
+st.subheader("Mapa")
+long=-75.50
+if st.button("Mostrar Mapa de localización"):
+    map =folium.Map([39.949,long],zoom_start=15)
+    folium.Marker([39.949,long],tooltip="Test",popup="Aquí").add_to(map)
+
+    st_folium(map, width=1000,height=800,returned_objects=[])
